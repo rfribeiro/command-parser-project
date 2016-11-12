@@ -1,0 +1,4 @@
+restpower=1234567890123456789
+activepower=50
+peakpower=91 
+sum(activepower, peakpower)

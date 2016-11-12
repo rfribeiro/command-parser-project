@@ -1,0 +1,14 @@
+restpower=10
+activepower=50
+peakpower=91 
+average (restpower, activepower, peakpower)
+other1=40
+other2=50
+other3=60
+variable=70
+test=80
+test2=90 
+average (restpower, activepower, peakpower, other1, other2, other3, variable , test, test2)
+average (restpower, activepower)
+average (other1, other2, other3)
+average (restpower)
