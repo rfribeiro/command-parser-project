@@ -29,6 +29,8 @@ std::vector<std::string> split(const std::string &text, char sep) {
 	return tokens;
 }
 
+string command = "average";
+
 int read_and_execute(string filename) {
 	std::ifstream in_stream;
 	in_stream.exceptions(std::ifstream::failbit | std::ifstream::badbit);
@@ -37,8 +39,6 @@ int read_and_execute(string filename) {
 	vector<string> commands_list;
 	map<string, long> variables_list;
 	int response = EXIT_SUCCESS;
-
-	string command = "average";
 
 	try {
 		// open file
@@ -130,7 +130,7 @@ int read_and_execute(string filename) {
 		cout << "Line:" << line_number << ":Error parsing command string" << endl;
 		response = EXIT_FAILURE;
 	}
-	catch (const std::ifstream::failure& e) {
+	catch (const std::ifstream::failure) {
 		cout << "Exception opening/reading/closing file" << endl;
 		response = EXIT_FAILURE;
 	}

@@ -1,18 +1,20 @@
 #include <iostream>
 #include <string>
-#include "command-parser-simple.h"
+
+#include "Interpreter.h"
 
 int main(int argc, char *argv[]) {
-	std::string file_name;
+	std::string filename;
 	try {
 		if (argc > 1 && argv[1] != NULL) {
-			file_name = argv[1];
+			filename = argv[1];
 		}
 		else {
-			std::cin >> file_name;
+			std::cin >> filename;
 		}
 
-		read_and_execute(file_name);
+		Interpreter i;
+		i.run(filename);
 	}
 	catch (const std::exception& e) {
 		std::cout << "Error unknown file name" << " : " << e.what() << std::endl;
