@@ -2,15 +2,15 @@
 #include "Command.h"
 
 /**
-* CommandAverage
-*	Class that calculates the average from all parameters passed
+* CommandSum
+*	Class that calculates the sum from all parameters passed
 */
-class CommandAverage :
+class CommandSum :
 	public Command
 {
 public:
-	CommandAverage();
-	~CommandAverage();
+	CommandSum();
+	~CommandSum();
 	virtual int execute(std::vector<std::string>& parameters_list, std::map<std::string, long>& variables_list);
 };
 

@@ -12,7 +12,7 @@ int main(int argc, char *argv[]) {
 			std::cin >> file_name;
 		}
 
-		read_and_execute(file_name);
+		process(file_name);
 	}
 	catch (const std::exception& e) {
 		std::cout << "Error unknown file name" << " : " << e.what() << std::endl;

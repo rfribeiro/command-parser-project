@@ -166,7 +166,13 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\command-parser-class\Command.cpp" />
+    <ClCompile Include="..\command-parser-class\CommandAverage.cpp" />
+    <ClCompile Include="..\command-parser-class\CommandFactory.cpp" />
+    <ClCompile Include="..\command-parser-class\CommandSum.cpp" />
+    <ClCompile Include="..\command-parser-class\Interpreter.cpp" />
     <ClCompile Include="..\command-parser-simple\command-parser-simple.cpp" />
+    <ClCompile Include="command-parser-class-tests.cpp" />
     <ClCompile Include="command-parser-simple-tests.cpp" />
     <ClCompile Include="command-parser-tests.cpp" />
   </ItemGroup>
