@@ -110,7 +110,7 @@ BOOST_AUTO_TEST_CASE(test_08)
 	{
 		cout_redirect guard(output.rdbuf());
 
-		BOOST_REQUIRE(process("..\\test-files\\test_08.txt") == EXIT_SUCCESS);
+		BOOST_REQUIRE(process("..\\test-files\\test_08.txt") == EXIT_FAILURE);
 	}
 
 	BOOST_CHECK(output.match_pattern());

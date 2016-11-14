@@ -29,10 +29,7 @@ std::vector<string> Interpreter::parseCommandParameters(const std::string &text,
 	std::size_t start = 0, end = 0;
 	while ((end = text.find(sep, start)) != std::string::npos) 
 	{
-		if (end != start) 
-		{
-			tokens.push_back(text.substr(start, end - start));
-		}
+		tokens.push_back(text.substr(start, end - start));
 		start = end + 1;
 	}
 	if (end != start) 
@@ -210,7 +207,8 @@ int Interpreter::run(std::string filename)
 
 		in_stream.close();
 	}
-	catch (const std::ifstream::failure) {
+	catch (const std::ifstream::failure) 
+	{
 		cout << "Exception opening/reading/closing file" << endl;
 		response = EXIT_FAILURE;
 	}

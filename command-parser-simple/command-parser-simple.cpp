@@ -79,13 +79,13 @@ int calculateAverage(std::vector<std::string>& command_parameters_list, map<stri
 * @param sep Separator character that will split parameters list
 * @return vector containing parameters list splitted
 */
-std::vector<std::string> parseCommandParameters(const std::string &text, char sep) {
+std::vector<std::string> parseCommandParameters(const std::string &text, char sep) 
+{
 	std::vector<std::string> tokens;
 	std::size_t start = 0, end = 0;
-	while ((end = text.find(sep, start)) != std::string::npos) {
-		if (end != start) {
-			tokens.push_back(text.substr(start, end - start));
-		}
+	while ((end = text.find(sep, start)) != std::string::npos) 
+	{
+		tokens.push_back(text.substr(start, end - start));
 		start = end + 1;
 	}
 	if (end != start) {
@@ -109,7 +109,8 @@ int parseVariable(std::string line, map<string, long>& variables_list)
 {
 	int ret = EXIT_FAILURE;
 	size_t var_index = 0;
-	if ((var_index = line.find(VARIABLE_TOKEN)) != string::npos) {
+	if ((var_index = line.find(VARIABLE_TOKEN)) != string::npos) 
+	{
 
 		// parse variable
 		string s_var_name = line.substr(0, var_index);
@@ -164,7 +165,8 @@ int parseCommand(std::string line, std::map<std::string, long>& variables_list, 
 				{
 					return (*itc->second)(command_parameters_list, variables_list);
 				}
-				else {
+				else 
+				{
 					throw std::overflow_error("Error command parameters list");
 				}
 			}
@@ -190,7 +192,8 @@ int process(string filename) {
 		// open file
 		in_stream.open(filename);
 
-		while (!in_stream.eof()) {
+		while (!in_stream.eof()) 
+		{
 			
 			++line_number;
 
@@ -210,11 +213,13 @@ int process(string filename) {
 		// close file
 		in_stream.close();
 	}
-	catch (const std::ifstream::failure) {
+	catch (const std::ifstream::failure) 
+	{
 		cout << "Exception opening/reading/closing file" << endl;
 		response = EXIT_FAILURE;
 	}
-	catch (const std::exception& e) {
+	catch (const std::exception& e) 
+	{
 		cout << "Line:" << line_number << ":" << e.what() << endl;
 		response = EXIT_FAILURE;
 	}
