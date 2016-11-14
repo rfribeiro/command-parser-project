@@ -4,11 +4,9 @@ import os
 MAX_NUMBER_SIZE = 30
 
 EXIT_SUCCESS = 0
-EXIT_ERROR = -1
+EXIT_ERROR = 1
 
-variable_list = dict()
-command_list = ['average']
-
+# [COMMAND_START] all commands must be defined here 
 def average(parameters, variables_list):
     sum = 0
     for param in parameters:
@@ -21,17 +19,19 @@ def average(parameters, variables_list):
 
     return EXIT_SUCCESS
 
-def parse_command(line):
-    for command in command_list:
+# [COMMAND_END]
+
+def parse_command(line, commands_list, variables_list):
+    for command in commands_list:
         if line.startswith(command):
             parameters = line[len(command)+1:-1]
             parameters_list = parameters.split(",")
 
-            return average(parameters_list, variable_list)
+            return commands_list[command](parameters_list, variables_list)
             
     return EXIT_ERROR
 
-def parse_variable(line):
+def parse_variable(line, variables_list):
     variable_split = line.split("=")
     if len(variable_split) == 2:
         if not variable_split[1].isdigit():
@@ -39,12 +39,21 @@ def parse_variable(line):
         elif len(variable_split[1]) > MAX_NUMBER_SIZE:
             raise Exception("Error variable value overflow")
 
-        variable_list[variable_split[0]] = long(variable_split[1])
+        variables_list[variable_split[0]] = long(variable_split[1])
         return EXIT_SUCCESS
 
     return EXIT_ERROR
 
+def load_commands(commands_list):
+    commands_list['average'] = average
+
+
 def read_and_process(filename):
+    variable_list = dict()
+    command_list = dict()
+
+    load_commands(command_list)
+
     ret = EXIT_SUCCESS
 
     if not os.path.exists(filename):
@@ -59,7 +68,7 @@ def read_and_process(filename):
                 line_count += 1
                 line = line.strip()
                 line = line.replace(" ", "")
-                if parse_variable(line) != EXIT_SUCCESS and parse_command(line) != EXIT_SUCCESS:
+                if parse_variable(line, variable_list) != EXIT_SUCCESS and parse_command(line, command_list, variable_list) != EXIT_SUCCESS:
                     raise Exception("Error variable or command not valid") 
 
         except Exception as ex:

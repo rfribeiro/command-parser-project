@@ -1,3 +1,5 @@
+#pragma warning(disable : 4503)
+
 #include <iostream>
 #include <fstream>
 #include <map>
@@ -18,7 +20,7 @@ using namespace std;
 #define COMMAND_PARAMETERS_SEP ','
 #define NUMBER_SEQUENCE "0123456789"
 
-typedef std::map<std::string, int (*)(std::vector<std::string>& command_parameters_list, map<string, long>& variables_list)> command_map;
+typedef std::map<std::string, int (*)(std::vector<std::string>& command_parameters_list, map<string, long>& variables_list)> CommandMap;
 
 /**
 * calculateSum
@@ -145,13 +147,13 @@ int parseVariable(std::string line, map<string, long>& variables_list)
 * @param commands_list list of all commands that can be processed
 * @return int value that tell if the string was parsed with success or not
 */
-int parseCommand(std::string line, std::map<std::string, long>& variables_list, command_map commands_list)
+int parseCommand(std::string line, std::map<std::string, long>& variables_list, CommandMap commands_list)
 {
 	int ret = EXIT_FAILURE;
 
 	if (!commands_list.empty())
 	{
-		for (command_map::iterator itc = commands_list.begin(); itc != commands_list.end(); ++itc)
+		for (CommandMap::iterator itc = commands_list.begin(); itc != commands_list.end(); ++itc)
 		{
 			if (line.find(itc->first) != string::npos
 				&& line[itc->first.length()] == COMMAND_START_TOKEN
@@ -176,6 +178,12 @@ int parseCommand(std::string line, std::map<std::string, long>& variables_list, 
 	return ret;
 }
 
+void loadCommands(CommandMap& commands_list)
+{
+	commands_list[COMMAND_AVERAGE] = &calculateAverage;
+	commands_list[COMMAND_SUM] = &calculateSum;
+}
+
 int process(string filename) {
 	std::ifstream in_stream;
 	in_stream.exceptions(std::ifstream::failbit | std::ifstream::badbit);
@@ -183,10 +191,9 @@ int process(string filename) {
 	string line;
 	map<string, long> variables_list;
 	int response = EXIT_SUCCESS;
-	command_map commands_list;
+	CommandMap commands_list;
 
-	commands_list[COMMAND_AVERAGE] = &calculateAverage;
-	commands_list[COMMAND_SUM] = &calculateSum;
+	loadCommands(commands_list);
 
 	try {
 		// open file
